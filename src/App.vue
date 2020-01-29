@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <app-header :qouteCount="qoutes.length" :maxQoutes="maxQoute"></app-header>
     <app-new-qoute @qouteAdded="newQoute"></app-new-qoute>
     <app-qoute-grid :qoutes="qoutes" @qouteDeleted="deleteQoute"></app-qoute-grid>
     <div class="row">
@@ -13,6 +14,7 @@
 <script>
 import QouteGrid from "./components/QouteGrid.vue";
 import NewQoute from "./components/NewQoute.vue";
+import Header from "./components/Header.vue";
 
 export default {
   data: function() {
@@ -23,6 +25,9 @@ export default {
   },
   methods: {
     newQoute(qoute) {
+      if (this.qoutes.length >= this.maxQoute) {
+        return alert("please delete a qoute.");
+      }
       this.qoutes.push(qoute);
     },
     deleteQoute(index) {
@@ -31,7 +36,8 @@ export default {
   },
   components: {
     appQouteGrid: QouteGrid,
-    appNewQoute: NewQoute
+    appNewQoute: NewQoute,
+    appHeader: Header
   }
 };
 </script>
